@@ -45,10 +45,12 @@ class _PackageViewScreenState extends State<PackageViewScreen> {
               CarouselSlider(
                 items: List.generate(dataFranchise.carouselData.length, (index) {
                   return _customCarouselWidget(
+
                     description: dataFranchise.carouselData[index]['value'].toString(),
                     headline: dataFranchise.carouselData[index]['key'].toString(),
                     context: context,
                     isSelected: _currentIndex == index, // Pass selection status
+
                   );
                 }),
                 options: CarouselOptions(
@@ -191,28 +193,6 @@ class _PackageViewScreenState extends State<PackageViewScreen> {
               ),
 
               ///Learn More
-              ListView.builder(
-                  itemCount: dataFranchise.learnMore.length,
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemBuilder: (context,index){
-                return customContainer(
-                  bRadius: 15,
-                  margin: 10,
-                  child: ExpansionTile(
-                      shape:RoundedRectangleBorder(
-                          side: BorderSide.none,
-                          borderRadius: BorderRadius.zero
-                      ) ,
-                      collapsedShape: RoundedRectangleBorder(
-                          side: BorderSide.none,
-                          borderRadius: BorderRadius.zero
-                      ),
-                      childrenPadding: EdgeInsets.only(left: 10),
-                      title: Text(dataFranchise.learnMore[index].toString(),style: TextStyle(fontSize: 14,fontWeight: FontWeight.w600),)
-                  ),
-                );
-              }),
 
               SizedBox(height: 50,)
             ],
@@ -247,7 +227,9 @@ Widget _customCarouselWidget({required String headline, required BuildContext co
               _rowIconText(text: 'Standard template',isSelected: isSelected),
               SizedBox(height: height * 0.03),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+
+                },
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
                   backgroundColor: Colors.white,

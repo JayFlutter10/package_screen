@@ -36,36 +36,31 @@ final List<dynamic> name=[
                 bRadius: 15,
             height: height*0.2,width: double.infinity
             ),
-            Expanded(
-              child: SizedBox(
-                height: height,
-                child: GridView.builder(
-                    itemCount: genere.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,mainAxisSpacing:2,crossAxisSpacing:0.5), itemBuilder: (context,index){
-                 return Column(
-                   mainAxisAlignment: MainAxisAlignment.center,
-                   crossAxisAlignment: CrossAxisAlignment.center,
-                   children: [
-                     customContainer(
-                       containerColor: Colors.blue.shade100,
-                         margin: 5,
-                         bRadius: 10,height: 150,width: 150,
-                        child:Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            customContainer(bRadius: 12,height: 110,width: 120,margin: 5,onTap: (){
-                             Navigator.pushNamed(context, name[index].toString());
-                            },),
-                            Text(genere[index].toString(),style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500),)
-                          ],
-                        ),
-                     ),
-                   ],
-                 );
-                }),
-              ),
-            )
+            GridView.builder(
+                itemCount: genere.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,mainAxisSpacing:2,crossAxisSpacing:0.5), itemBuilder: (context,index){
+             return Column(
+               mainAxisAlignment: MainAxisAlignment.center,
+               crossAxisAlignment: CrossAxisAlignment.center,
+               children: [
+                 customContainer(
+                   containerColor: Colors.blue.shade100,
+                     margin: 5,
+                     bRadius: 10,height: 150,width: 150,
+                    child:Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        customContainer(bRadius: 12,height: 110,width: 120,margin: 5,onTap: (){
+                         Navigator.pushNamed(context, name[index].toString());
+                        },),
+                        Text(genere[index].toString(),style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500),)
+                      ],
+                    ),
+                 ),
+               ],
+             );
+            })
           ],
         ),
       ),

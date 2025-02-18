@@ -274,7 +274,18 @@ class DataFranchise{
     },
   ];
   final List<dynamic> learnMore=[
-    'Learn more about revenue','Learn more about marketing support','Learn more about franchise support'
+    {
+      'title':'Learn more about revenue',
+      'data':'Earn 5%-15% revenue share.'
+    },
+    {
+      'title':'Learn more about marketing support',
+      'data':'Earn 7% team revenue.Geo-targeted ad campaigns provided.Use advanced marketing templates',
+    },
+    {
+      'title':'Learn more about franchise support',
+      'data':'Receive support within 6 hours.Get priority franchise access.'
+    }
   ];
   final List<dynamic> assuredLearning=[
     ' ₹30,000 – ₹50,000/month',' ₹50,000 – ₹70,000/month',' ₹70,000 – ₹1,00,000/month'
