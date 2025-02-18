@@ -3,15 +3,20 @@ import 'package:flutter/material.dart';
 
 class DataFranchise{
   final List<dynamic> carouselData = [
-    {'key':'Franchise',
+    {'key':'\nFranchise',
       'value':''
     },
-    {'key':'Super\nFranchise',
+    {
+      'key':'Super\nFranchise',
       'value':'Recruit 10 Super Franchises to become a Super Franchise.'
     },
-    {'key':'Premium\nFranchise',
+    {
+      'key':'Premium\nFranchise',
       'value':'Recruit 10 Super Franchises to become a Premium Franchise.'
     }
+  ];
+  final List<dynamic> franchiseName=[
+    'Franchise','Super Franchise','Premium Franchise'
   ];
   final List<dynamic> franchise=[
     {
