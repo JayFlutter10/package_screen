@@ -102,7 +102,7 @@ class _SelectedPackageScreenState extends State<SelectedPackageScreen> {
                   );
                 }),
                 options: CarouselOptions(
-                  height: height * 0.4,
+                  height: height * 0.46,
                   initialPage: 1,
                   enableInfiniteScroll: true,
                   enlargeCenterPage: true,
@@ -286,13 +286,14 @@ Widget _customCarouselWidget({required String headline, required BuildContext co
         customContainer(
           bRadius: 15,
           containerColor: isSelected ? Color.fromRGBO(0, 80, 157, 1) : Colors.white, // Change color dynamically
-          vPadding: isSelected?height * 0.07:height*0.06,
-          margin: isSelected?width * 0.032:0.03,
-          hPadding: 5,
+          vPadding: isSelected?height * 0.09:height*0.08,
+          margin: isSelected?width * 0.035:0.035,
+          hPadding: width*0.02,
           width: width * 0.9,
           child: Column(
             children: [
-              Text(description!,style: TextStyle(color: isSelected?Color.fromRGBO(208, 208, 208,1):Colors.white,fontWeight: FontWeight.w800,fontSize: 14),textAlign: TextAlign.center,),
+
+              Text(description!,style: TextStyle(color: Color.fromRGBO(208, 208, 208,1),fontWeight: FontWeight.w800,fontSize: 14),textAlign: TextAlign.center,),
               _rowIconText(text: 'Response within 24hrs.',isSelected: isSelected),
               _rowIconText(text: 'Priority franchise access',isSelected: isSelected),
               _rowIconText(text: 'Standard template',isSelected: isSelected),
@@ -430,10 +431,10 @@ Widget _imageForCenterStacked(BuildContext context){
   return Stack(
     alignment: Alignment.center,
     children: [
-      Image.asset('assets/package/img/bg.png',scale: 0.8,),
+      Image.asset('assets/package/img/bg.png',scale: 0.9,),
       Positioned(
-          top: 15,
-          child: Image.asset('assets/package/img/crown.png',scale: 0.8,),),
+          top: height*0.005,
+          child: Image.asset('assets/package/img/crown.png',scale: 0.75,),),
       Positioned(
           right: 0,bottom: height*0.018,
           child: Image.asset('assets/package/img/star.png',scale: 0.7,),),
@@ -441,7 +442,7 @@ Widget _imageForCenterStacked(BuildContext context){
           left: 0,top: 0,
           child: Image.asset('assets/package/img/star.png',scale: 0.6,),),
       Positioned(
-          bottom: height*0.03,
+          bottom: height*0.035,
           child: Text('Franchise',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600),),)
     ],
   );
