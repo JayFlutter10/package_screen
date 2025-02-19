@@ -95,7 +95,6 @@ class _PackageViewScreenState extends State<PackageViewScreen> {
                     ],
                   ),
                 ),
-
                 SizedBox(height: height*0.04,),
 
                 ///Upgrade Now

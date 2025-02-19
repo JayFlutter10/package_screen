@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 import 'dart:convert';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -181,7 +182,7 @@ class _YouTubeShortsState extends State<YouTubeShorts> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+
       backgroundColor: Colors.black,
       body: _error != null
           ? Center(
@@ -231,6 +232,7 @@ class _YouTubeShortsState extends State<YouTubeShorts> {
           ),
           if (_isLoading && _shorts.isEmpty)
             const Center(
+
               child: CircularProgressIndicator(color: Colors.white),
             ),
         ],
@@ -266,19 +268,8 @@ class _ShortVideoPlayerState extends State<ShortVideoPlayer> {
   @override
   void initState() {
     super.initState();
+    _safeInitializePlayer();
     _initializePlayer();
-  }
-
-  @override
-  void didUpdateWidget(ShortVideoPlayer oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.isActive != oldWidget.isActive) {
-      if (widget.isActive) {
-        _controller?.play();
-      } else {
-        _controller?.pause();
-      }
-    }
   }
 
   Future<void> _initializePlayer() async {
@@ -294,36 +285,87 @@ class _ShortVideoPlayerState extends State<ShortVideoPlayer> {
         enableCaption: false,
       ),
     );
-
     setState(() => _isInitialized = true);
   }
 
+
+  Future<void> _navigateToChannel() async {
+    final Uri url = Uri.parse('https://www.youtube.com/@RivaanRanawat/shorts');
+
+    try {
+      // First check if the URL can be launched
+      if (await canLaunchUrl(url)) {
+        await launchUrl(
+          url,
+          mode: LaunchMode.externalApplication,
+        ).catchError((error) {
+          _showError('Failed to open URL: $error');
+          return false;
+        });
+      } else {
+        _showError('Could not launch YouTube');
+      }
+    } catch (e) {
+      _showError('Error launching URL: $e');
+      print(e);
+    }
+  }
+
+  void _showError(String message) {
+    if (!mounted) return;
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: const Duration(seconds: 3),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.red,
+      ),
+    );
+  }
+
+  // Add this method to handle initialization errors
+  Future<void> _safeInitializePlayer() async {
+    try {
+      await _initializePlayer();
+    } catch (e) {
+      _showError('Error initializing player: $e');
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    return IndexedStack(
-      sizing: StackFit.expand,
+    return Stack(
+      fit: StackFit.expand,
       children: [
-        if (_isInitialized && _controller != null)
-          YoutubePlayer(
-            controller: _controller!,
-            showVideoProgressIndicator: false,
-            progressColors: const ProgressBarColors(
-              playedColor: Colors.red,
-              handleColor: Colors.redAccent,
-            ),
-          )
-        else
-          Image.network(
-            widget.video.thumbnailUrl,
-            fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) {
-              return const Center(
-                child: Icon(Icons.error, color: Colors.white),
-              );
-            },
-          ),
+        // Video Player
+        IndexedStack(
+          sizing: StackFit.expand,
+          children: [
+            if (_isInitialized && _controller != null)
+              YoutubePlayer(
+                controller: _controller!,
+                showVideoProgressIndicator: false,
+                progressColors: const ProgressBarColors(
+                  playedColor: Colors.red,
+                  handleColor: Colors.redAccent,
+                ),
+              )
+            else
+              Image.network(
+                widget.video.thumbnailUrl,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Center(
+                    child: Icon(Icons.error, color: Colors.white),
+                  );
+                },
+              ),
+          ],
+        ),
 
-        // Video Info Overlay
+        // Channel Info with Navigation
         Positioned(
           bottom: 20,
           left: 10,
@@ -331,55 +373,56 @@ class _ShortVideoPlayerState extends State<ShortVideoPlayer> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                '@${widget.video.channelTitle}',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
+              GestureDetector(
+                onTap: _navigateToChannel,
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 15,
+                      backgroundColor: Colors.white24,
+                      child: Text(
+                        widget.video.channelTitle[0].toUpperCase(),
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '@${widget.video.channelTitle}',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            widget.video.title,
+                            style: const TextStyle(
+                              color: Colors.white70,
+                              fontSize: 14,
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 8),
-              Text(
-                widget.video.title,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                ),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-              if (widget.video.viewCount != null) ...[
-                const SizedBox(height: 8),
-                Text(
-                  '${_formatNumber(widget.video.viewCount!)} views',
-                  style: const TextStyle(
-                    color: Colors.white70,
-                    fontSize: 12,
-                  ),
-                ),
-              ],
             ],
           ),
         ),
 
-        // Loading indicator
         if (!_isInitialized)
           const Center(
             child: CircularProgressIndicator(color: Colors.white),
           ),
       ],
     );
-  }
-
-  String _formatNumber(String number) {
-    final num = int.parse(number);
-    if (num >= 1000000) {
-      return '${(num / 1000000).toStringAsFixed(1)}M';
-    } else if (num >= 1000) {
-      return '${(num / 1000).toStringAsFixed(1)}K';
-    }
-    return number;
   }
 
   @override

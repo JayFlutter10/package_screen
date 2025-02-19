@@ -9,7 +9,7 @@ class NavigateToShorts extends StatefulWidget {
 }
 
 class _NavigateToShortsState extends State<NavigateToShorts> {
-  final String channelId='UC-1kzHtwBY8n0TY5NhYxNaw';
+  final String channelId='UC7kR_SrvuLwPgCDbXd05JJg';
   final String apiKey='AIzaSyAVIXa894w3LGWaUFFIDBPu-4mHTOt5OKY';
   @override
   Widget build(BuildContext context) {
