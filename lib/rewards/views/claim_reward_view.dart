@@ -95,11 +95,12 @@ class _ClaimRewardViewState extends State<ClaimRewardView> {
             ///Copy Redeem Code
             SliverToBoxAdapter(
               child: customContainer(
+                height: height*0.05,
                 borderColor: Colors.grey.shade500,
                 margin: 10,
                 bRadius: 20,
                 child: TextFormField(
-                  style: TextStyle(letterSpacing: 6,fontSize: 18),
+                  style: TextStyle(letterSpacing: 6,fontSize: 18,),
                   decoration: InputDecoration(
                     contentPadding:EdgeInsets.only(left:width*0.05,top: height*0.015),
                     border: InputBorder.none,
@@ -109,7 +110,7 @@ class _ClaimRewardViewState extends State<ClaimRewardView> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Center(child: Text("Copied to clipboard!",style: textStyle16(context,color: Colors.white),)),backgroundColor: Color.fromRGBO(0, 80, 157, 1),),
                       );
-                    }, icon: Icon(Icons.copy))
+                    }, icon: Icon(Icons.copy,size:width*0.05,),)
                   ),
                   controller:_controller,
                   readOnly: true,
@@ -120,10 +121,7 @@ class _ClaimRewardViewState extends State<ClaimRewardView> {
 
             ///Expiry,Offer Details & Terms and Conditions
             SliverToBoxAdapter(
-              child: customContainer(
-                borderColor: Colors.grey.shade200,
-                bRadius: 18,
-                margin: height*0.01,
+
                 child: ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
@@ -132,7 +130,7 @@ class _ClaimRewardViewState extends State<ClaimRewardView> {
                   return _expansion(headline: details[index]['title'], icon: details[index]['icon'], context: context,selection: index==0?false:true, data: details[index]['subtitle'], width: width*0.02);
                 }),
               ),
-            )
+
           ],
         ),
       ),
@@ -143,7 +141,7 @@ Widget _expansion({required String headline,required IconData icon,required bool
   return ExpansionTile(
     iconColor: Colors.grey,
     shape: RoundedRectangleBorder(
-      side: BorderSide(color: Colors.grey.shade300,)
+      side: BorderSide.none
     ),
       title:Row(
         children: [
