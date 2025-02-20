@@ -41,8 +41,6 @@ class _ClaimRewardViewState extends State<ClaimRewardView> {
           slivers: [
             ///AppBar
             SliverAppBar.large(
-              floating: false,
-              pinned: true,
               expandedHeight: height*0.3,
               flexibleSpace:
               FlexibleSpaceBar(

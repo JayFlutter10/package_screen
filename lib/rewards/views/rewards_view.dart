@@ -19,11 +19,13 @@ class _RewardsViewState extends State<RewardsView> {
     final double width=MediaQuery.of(context).size.width;
     ///user_recruited_franchise_members must not exceed 20
   final int user_recruited_franchise_members=10;
+  final int recruitee_number=20;
+  int user_recruitee_left=0;
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(0.02),
+          padding:  EdgeInsets.symmetric(horizontal:width*0.02),
           child: Column(
             children: [
               ///Center Text
@@ -74,7 +76,7 @@ class _RewardsViewState extends State<RewardsView> {
                           child: LinearProgressBar(
                             progressColor: Colors.red,
                             borderRadius: BorderRadius.circular(width*0.05),
-                            maxSteps: 20,
+                            maxSteps: recruitee_number,
                             currentStep: user_recruited_franchise_members,
                           ),
                         ),
@@ -97,7 +99,11 @@ class _RewardsViewState extends State<RewardsView> {
                     Text('Claim Now',style: textStyle18(context,color: Colors.white),),
                 ],
               ),onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder:(context)=>ClaimRewardView()));}),
+                user_recruitee_left=recruitee_number-user_recruited_franchise_members;
+                user_recruited_franchise_members==recruitee_number?
+                Navigator.push(context, MaterialPageRoute(builder:(context)=>ClaimRewardView())):ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Center(child: Text("$user_recruitee_left users are left to unlock the reward",style: textStyle16(context,color: Colors.white),)),backgroundColor: Color.fromRGBO(0, 80, 157, 1),),
+                );}),
               SizedBox(height: height*0.02,),
 
               /// Builder for Locked Rewards
@@ -148,25 +154,17 @@ class _RewardsViewState extends State<RewardsView> {
                                 children: [
                                   Text('Lorem ipsum dolor sit amet',style: textStyle16(context),),
                                   Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus luctus urna sed urna ultricies ac tempor dui',style: textStyle14(context,fontWeight: FontWeight.w400),),
-                                  Row(
-                                    children: [
-                                      CircleAvatar(radius:width*0.035, child: Icon(CupertinoIcons.checkmark_alt_circle,size: 18,)),
-                                      Text('Lorem ipsum dolor sit amet',style: textStyle14(context),),
-                                    ],
-                                  ),
-                                  _dash(width: width,height: height*0.8),
-                                  Row(
-                                    children: [
-                                      CircleAvatar(radius: width*0.035,child: Icon(CupertinoIcons.lock,size: width*0.05,),),
-                                      Text('Lorem ipsum dolor sit amet',style: textStyle14(context),),
-                                    ],
-                                  ),
+                                  _rowText(width: width, context: context, icon: CupertinoIcons.checkmark_alt_circle, text: 'Lorem ipsum dolor sit amet'),
+                                  _dash(width: width,height: height*0.45),
+                                  _rowText(width: width, context: context, icon: CupertinoIcons.lock, text: 'Lorem ipsum dolor sit amet'),
+
                                 ],
                               ),
                             ),
                           ],
-                        ),),
-                      SizedBox(height: height*0.05,)
+                        ),
+                      ),
+                      SizedBox(height: height*0.02,)
                     ],
                   );
               }),
@@ -189,6 +187,14 @@ Widget _dash({required double width,required double height}){
           width: width*0.01,
           height: height*0.065
       ),
+    ],
+  );
+}
+Widget _rowText({required double width,required BuildContext context,required IconData icon,required String text}){
+  return Row(
+    children: [
+      CircleAvatar(radius: width*0.03,child: Icon(icon,size: width*0.04,),),
+      Text(text,style: textStyle14(context),),
     ],
   );
 }
