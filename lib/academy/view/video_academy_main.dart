@@ -26,8 +26,7 @@ final List<dynamic> name=[
     final double height=MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(),
-      body: Container(
-        margin: EdgeInsets.all(10),
+      body: SingleChildScrollView(
         child: Column(
           children: [
             customContainer(
@@ -37,6 +36,8 @@ final List<dynamic> name=[
             height: height*0.2,width: double.infinity
             ),
             GridView.builder(
+              shrinkWrap: true,
+                scrollDirection: Axis.vertical,
                 itemCount: genere.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,mainAxisSpacing:2,crossAxisSpacing:0.5), itemBuilder: (context,index){
              return Column(

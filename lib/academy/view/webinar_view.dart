@@ -105,13 +105,13 @@ final String link='https://www.bizbooster.com/franchise?meetinglink';
                           text: '10',style: TextStyle(color: Colors.black54,fontSize: 28,fontWeight: FontWeight.bold),
                           children: [
                             TextSpan(
-                              text: 'hr',style: TextStyle(color: Colors.black54,fontSize: 15,fontWeight: FontWeight.bold,),
+                              text: 'hr'
                             ),
                             TextSpan(
-                              text: ' 40',style: TextStyle(color: Colors.black54,fontSize: 28,fontWeight: FontWeight.bold,),
+                              text: ' 40'
                             ),
                             TextSpan(
-                              text: 'min',style: TextStyle(color: Colors.black54,fontSize: 15,fontWeight: FontWeight.bold,),
+                              text: 'min'
                             ),
                           ]
                       )),

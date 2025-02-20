@@ -74,30 +74,28 @@ class _CertificateViewState extends State<CertificateView> {
                 color: Colors.white54
             ),
             child: SizedBox(
-              height: 50,
-              child: Expanded(
-                child: ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: tabData.length,
-                  itemBuilder: (context,index){
-                    return customContainer(
-                      onTap: (){
-                        setState(() {
-                          _selectedIndexTwo=index;
-                        });
-                      },
-                      bRadius: 7,
-                      margin:10,
-                      vPadding: 3,
-                      hPadding: 5,
-                      containerColor:  _selectedIndexTwo==index? Colors.blue:Colors.white,
-                      child: Text(tabData[index].toString(),style: TextStyle(fontSize: 16,color
-                          :  _selectedIndexTwo==index?Colors.white:Colors.black,fontWeight: FontWeight.bold,),),
-                    );
-                  },
-                ),
+              height: height*0.06,
+              child: ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: tabData.length,
+                itemBuilder: (context,index){
+                  return customContainer(
+                    onTap: (){
+                      setState(() {
+                        _selectedIndexTwo=index;
+                      });
+                    },
+                    bRadius: 7,
+                    margin:10,
+                    vPadding: 3,
+                    hPadding: 5,
+                    containerColor:  _selectedIndexTwo==index? Colors.blue:Colors.white,
+                    child: Text(tabData[index].toString(),style: TextStyle(fontSize: 16,color
+                        :  _selectedIndexTwo==index?Colors.white:Colors.black,fontWeight: FontWeight.bold,),),
+                  );
+                },
               ),
             ),
           
@@ -122,34 +120,28 @@ class _CertificateViewState extends State<CertificateView> {
                           Text('56,000 Reviews',style: TextStyle(fontSize: 12,color: Colors.grey,fontWeight: FontWeight.w500),),
                         ],
                       ),
-                      SizedBox(
-                        height: height*0.2,
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: number.length,
-                            itemBuilder: (context,index){
-                              int indexNo=6-index;
-                              return _rating(width*0.25, width*0.21, (indexNo-1).toString(), number[index].toString()) ;
-                            }
-                        ),
+                      ListView.builder(
+                        shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: number.length,
+                          itemBuilder: (context,index){
+                            int indexNo=6-index;
+                            return _rating(width*0.25, width*0.21, (indexNo-1).toString(), number[index].toString()) ;
+                          }
                       ),
                     ],
                   ),
                 ),
           
                 Expanded(
-                  child: SizedBox(
-                    height: height*0.25,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      scrollDirection: Axis.vertical,
-                      itemCount: 3,
-                      itemBuilder: (context, index) {
-                        return _customerReview();
-                      },),
-                  ),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    itemCount: 3,
+                    itemBuilder: (context, index) {
+                      return _customerReview();
+                    },),
                 ),
               ],
             ) :
@@ -241,7 +233,6 @@ Widget _customerReview(){
         children: [
           CircleAvatar(
             child: Text("A"),
-
           ),
           Expanded(
             child: Column(
@@ -285,7 +276,6 @@ Widget _videos(String no){
 
                     ],
                   ),
-
                   Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit',maxLines: 2,overflow: TextOverflow.ellipsis,)
                 ],
               ),

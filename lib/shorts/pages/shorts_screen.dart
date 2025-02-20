@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:url_launcher/url_launcher.dart';
+
 import 'dart:convert';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -9,13 +9,13 @@ class YouTubeShorts extends StatefulWidget {
   final String apiKey;
 
   const YouTubeShorts({
-    Key? key,
+    super.key,
     required this.channelId,
     required this.apiKey,
-  }) : super(key: key);
+  });
 
   @override
-  _YouTubeShortsState createState() => _YouTubeShortsState();
+  State<YouTubeShorts> createState() => _YouTubeShortsState();
 }
 
 class YouTubeVideo {
@@ -258,7 +258,7 @@ class ShortVideoPlayer extends StatefulWidget {
   });
 
   @override
-  _ShortVideoPlayerState createState() => _ShortVideoPlayerState();
+  State<ShortVideoPlayer> createState() => _ShortVideoPlayerState();
 }
 
 class _ShortVideoPlayerState extends State<ShortVideoPlayer> {
@@ -289,27 +289,27 @@ class _ShortVideoPlayerState extends State<ShortVideoPlayer> {
   }
 
 
-  Future<void> _navigateToChannel() async {
-    final Uri url = Uri.parse('https://www.youtube.com/@RivaanRanawat/shorts');
-
-    try {
-      // First check if the URL can be launched
-      if (await canLaunchUrl(url)) {
-        await launchUrl(
-          url,
-          mode: LaunchMode.externalApplication,
-        ).catchError((error) {
-          _showError('Failed to open URL: $error');
-          return false;
-        });
-      } else {
-        _showError('Could not launch YouTube');
-      }
-    } catch (e) {
-      _showError('Error launching URL: $e');
-      print(e);
-    }
-  }
+  // Future<void> _navigateToChannel() async {
+  //   final Uri url = Uri.parse('https://www.youtube.com/@RivaanRanawat/shorts');
+  //
+  //   try {
+  //     // First check if the URL can be launched
+  //     if (await canLaunchUrl(url)) {
+  //       await launchUrl(
+  //         url,
+  //         mode: LaunchMode.externalApplication,
+  //       ).catchError((error) {
+  //         _showError('Failed to open URL: $error');
+  //         return false;
+  //       });
+  //     } else {
+  //       _showError('Could not launch YouTube');
+  //     }
+  //   } catch (e) {
+  //     _showError('Error launching URL: $e');
+  //     print(e);
+  //   }
+  // }
 
   void _showError(String message) {
     if (!mounted) return;
@@ -374,7 +374,7 @@ class _ShortVideoPlayerState extends State<ShortVideoPlayer> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               GestureDetector(
-                onTap: _navigateToChannel,
+                onTap: (){},
                 child: Row(
                   children: [
                     CircleAvatar(
